@@ -1,6 +1,9 @@
-const app = require('express')();
+const express = require('express');
+
+const app = express();
+
 const http = require('http').createServer(app);
-const cors = require('cors'); // back libera permissão para o front
+// const cors = require('cors'); // back libera permissão para o front
 
 const io = require('socket.io')(http, {
     cors: {
@@ -8,14 +11,14 @@ const io = require('socket.io')(http, {
       methods: ['GET', 'POST'], // Métodos aceitos pela url
     } });
 
-    app.use(cors());
+    // app.use(cors());
 
+app.set('view engine', 'ejs');
+app.set('views', './views');
+app.use(express.static(`${__dirname}/views`));
+
+app.get('/', require('./controller/user'));
 require('./sockets/chat')(io);
-
-// renderiza o html      
-/* app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/chat.html');
-}); */
 
 http.listen(3000, () => {
   console.log('Servidor ouvindo na porta 3000');

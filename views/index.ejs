@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h3>Webchat Trybe</h3>
+  <div>
+    <section>
+      <div>
+        <label>
+          <span data-testid="online-user"  id="online-user" class="online-user"></span>
+          <input type="text" data-testid="nickname-box" id="nickname-box" class="nickname-box" placeholder="Digite seu nickname" />
+          <button data-testid="nickname-button" id="nickname-button" class="nickname-button">Salvar</button>
+        </label>
+      </div>
+      <ul class="users"></ul>
+    </section>
+    <ul class="messages">
+      <% messages.map((msg)=> {
+        const { timestamp, message, nickname } = msg;
+        %>
+        <li data-testid="message">
+          <%= `${timestamp} - ${nickname}: ${message}` %>
+        </li>
+        <% }) %>
+    </ul>
+    <div class="form-message">
+      <label>
+        <input type="text" class="message-box" id="message-box" data-testid="message-box" placeholder="Digite sua mensagem" />
+        <button data-testid="send-button" id="send-button" class="send-button">Enviar</button>
+      </label>
+    </div>
+  </div>
+</body>
+<script src="/socket.io/socket.io.js"></script> <!-- implementa o script do socket.io dentro da página HTML --> 
+<script src='./chat.js'></script>
+</html>
