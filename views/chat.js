@@ -6,14 +6,16 @@ const sendButton = document.getElementById('send-button');
 const nicknameBox = document.getElementById('nickname-box');
 const nicknameButton = document.getElementById('nickname-button');
 const onlineUser = document.getElementById('online-user');
-const messageUl = document.querySelector('.messages');
+const messageUl = document.getElementById('messages');
 const onlineUsersElem = document.getElementById('users-list');
 
 // https://stackoverflow.com/questions/10726909/random-alpha-numeric-string-in-javascript
 const randomNickname = Array.from(Array(16), 
 () => Math.floor(Math.random() * 36).toString(36)).join('');
 
-onlineUser.innerHTML = sessionStorage.getItem('nickname') || randomNickname;
+const clientNickname = sessionStorage.getItem('nick') || randomNickname;
+onlineUser.innerHTML = clientNickname;
+socket.emit('create', clientNickname);
 
 sendButton.addEventListener('click', () => {
   socket.emit('message', { chatMessage: messageBox.value, nickname: onlineUser.innerHTML });
@@ -25,6 +27,7 @@ nicknameButton.addEventListener('click', () => {
   nicknameBox.value = '';
   onlineUser.innerHTML = newNickname;
   sessionStorage.setItem('nickname', newNickname);
+  socket.emit('updateNickname', newNickname);
 });
 
 function messageCreation(message) {

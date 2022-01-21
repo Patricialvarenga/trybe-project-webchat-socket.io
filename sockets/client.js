@@ -3,7 +3,7 @@ const onlineUsers = [];
 // O io foi uma criação do meu servidor, qd houver uma conexão, será criado o socket, onde será possível verificar os demais eventos
 module.exports = (io) => io.on('connection', (socket) => {
   socket.on('create', (nickname) => {
-    onlineUsers.push({ id: socket.id, nickname });
+     onlineUsers.push({ id: socket.id, nickname });
     io.emit('onlineUsers', onlineUsers);
   });
 

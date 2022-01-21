@@ -13,7 +13,7 @@
           <button data-testid="nickname-button" id="nickname-button" class="nickname-button">Salvar</button>
       </div>
       <div>
-        <ul class="messages">
+        <ul id= "messages" class="messages">
           <% messages.map((msg)=> {
             const { timestamp, message, nickname } = msg;
             %>
